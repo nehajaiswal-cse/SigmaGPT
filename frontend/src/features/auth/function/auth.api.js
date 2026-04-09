@@ -1,12 +1,12 @@
 import axios from "axios"
 
-const API_URL = import.meta.env.VITE_API_URL;
+//const API_URL = import.meta.env.VITE_API_URL;
 
 const api=axios.create({
-    baseURL:API_URL,
+    baseURL:"https://sigmagpt-backend-ktzu.onrender.com/api/auth",
     withCredentials:true
 })
-
+console.log("Current API URL:", API_URL)
 // Add token to Authorization header if it exists in localStorage
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
