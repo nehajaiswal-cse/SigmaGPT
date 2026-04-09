@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {useNavigate,Link} from "react-router";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
-import{useAuth} from "../hooks/UseAuth.jsx";
+import{useAuth} from "../hooks/useAuth";
 
 export default function LoginPage() {
   const{loading,handleLogin} = useAuth();

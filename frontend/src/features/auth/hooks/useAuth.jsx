@@ -1,7 +1,7 @@
 import{useContext, useEffect} from "react";
 
 import { AuthContext } from "../auth.context";
-import { login, register, logout ,getMe} from "../services/auth.api";
+import { login, register, logout ,getMe} from "./services/auth.api";
 //hooklayer managing state and api layer
 export const useAuth=()=>{
     const context = useContext(AuthContext)
