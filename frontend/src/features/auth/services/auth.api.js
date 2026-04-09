@@ -19,7 +19,7 @@ api.interceptors.request.use((config) => {
 export async function register({username,email,password}){
     try{
         const response= await api.post('/register',{
-           username,email,password  
+           email,username,password  
          },{
         withCredentials:true //access to read the cookies
     })
