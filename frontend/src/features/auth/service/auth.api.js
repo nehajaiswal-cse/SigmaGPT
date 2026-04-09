@@ -1,9 +1,20 @@
 import axios from "axios"
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const api=axios.create({
-    baseURL:'https://sigmagpt-backend-ktzu.onrender.com/api/auth',
+    baseURL:API_URL,
     withCredentials:true
 })
+
+// Add token to Authorization header if it exists in localStorage
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
 
 export async function register({username,email,password}){
     try{
@@ -12,9 +23,14 @@ export async function register({username,email,password}){
          },{
         withCredentials:true //access to read the cookies
     })
+    // Store token in localStorage if received in response
+    if(response.data.token){
+        localStorage.setItem('token', response.data.token)
+    }
     return response.data
     } catch(e) {
        console.log(e.response.data);
+       throw e
     }
     
 }
@@ -24,6 +40,10 @@ export async function login({email,password}){
          const response = await api.post("/login",{
             email,password
          })
+         // Store token in localStorage if received in response
+         if(response.data.token){
+            localStorage.setItem('token', response.data.token)
+         }
         
         return response.data
     }
@@ -39,10 +59,14 @@ export async function login({email,password}){
 export async function logout() {
     try{
         const response = await api.get("/logout")
+        // Remove token from localStorage
+        localStorage.removeItem('token')
         return response.data
     }
     catch(e){
         console.log(e);
+        // Still remove token even if logout fails
+        localStorage.removeItem('token')
     }
 }
 

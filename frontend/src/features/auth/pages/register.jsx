@@ -18,8 +18,13 @@ export default function RegisterPage() {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-    await handleRegister({username,email,password})
-    navigate("/");
+    setError("");
+    try {
+      await handleRegister({username,email,password})
+      navigate("/");
+    } catch(err) {
+      setError(err.response?.data?.message || "Registration failed");
+    }
   };
 
   if(loading){

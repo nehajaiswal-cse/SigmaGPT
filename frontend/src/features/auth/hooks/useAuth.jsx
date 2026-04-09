@@ -53,11 +53,20 @@ export const useAuth=()=>{
 
     useEffect(()=>{
         const getAndSetUser = async()=>{
+            setloading(true)
            try {
-            const res = await getMe()
-            setUser(res?.user || null)
-        } catch {
+            const token = localStorage.getItem('token')
+            // Only try to get user if token exists
+            if(token){
+                const res = await getMe()
+                setUser(res?.user || null)
+            } else {
+                setUser(null)
+            }
+        } catch(e) {
+            console.error("Auth check failed:", e)
             setUser(null)
+            localStorage.removeItem('token')
         } finally {
             setloading(false)
         }

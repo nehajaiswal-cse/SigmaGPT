@@ -15,10 +15,13 @@ export default function LoginPage() {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
-   await handleLogin({email,password})
-   navigate("/");
-
-    
+    setError("");
+    try {
+      await handleLogin({email,password})
+      navigate("/");
+    } catch(err) {
+      setError(err.response?.data?.message || "Login failed");
+    }
   };
 
   if(loading){
