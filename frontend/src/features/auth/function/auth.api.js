@@ -20,9 +20,7 @@ export async function register({username,email,password}){
     try{
         const response= await api.post('/register',{
            email,username,password  
-         },{
-        withCredentials:true //access to read the cookies
-    })
+         })
     // Store token in localStorage if received in response
     if(response.data.token){
         localStorage.setItem('token', response.data.token)
@@ -52,7 +50,9 @@ export async function login({email,password}){
       return e.response.data;   // return backend error message
      }
 
-    return { message: "Network error" };
+    // return { message: "Network error" };
+    throw new Error("Network error");
+    
     }
 }
 
