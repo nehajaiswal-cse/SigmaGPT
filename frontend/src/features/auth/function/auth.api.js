@@ -6,7 +6,7 @@ const api=axios.create({
     baseURL:"https://sigmagpt-backend-ktzu.onrender.com/api/auth",
     withCredentials:true
 })
-console.log("Current API URL:", API_URL)
+
 // Add token to Authorization header if it exists in localStorage
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
