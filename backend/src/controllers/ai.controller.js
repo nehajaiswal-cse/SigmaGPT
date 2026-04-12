@@ -15,6 +15,16 @@ async function generateCodeController(req, res) {
     console.log("✅ FULL RESPONSE:", JSON.stringify(aiText, null, 2));
     // const parsed = extractJSON(aiText);
 
+
+   if (!aiText || typeof aiText !== "object") {
+      console.error("Unexpected AI response format:", aiText);
+      return res.status(500).json({ 
+
+        success: false,
+        message: "Invalid response from AI" 
+      });
+    }
+
     res.status(200).json({
       success: true,
       data: aiText,

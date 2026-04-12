@@ -6,6 +6,7 @@ const API = axios.create({
 
 export const generateCode = async (prompt) => {
   const { data } = await API.post("/generate", { prompt });
+  console.log("Raw AI Response:", data);
   const{html,css,js}=data.data.code;
 
     let cleanHtml = html

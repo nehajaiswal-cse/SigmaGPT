@@ -9,13 +9,13 @@ async function generateResponse(prompt) {
             {
                 model: "deepseek/deepseek-chat", // free model
                 messages: [
-                    { role: "user", content: `  Generate HTML, CSS, and JavaScript code. IMPORTANT:- Always return code in this format:
-                        \`\`\`html<!-- html code -->\`\`\`\`\`\`css
-                        /* css code */
-                        \`\`\`
-                        \`\`\`javascript
-                        // js code
-                        // \`\`\`${prompt}` }
+                    { role: "user", content: ` Generate HTML, CSS, and JavaScript code. IMPORTANT:- Always return code in this format:
+\`\`\`html<!-- html code -->\`\`\`\`\`\`css
+/* css code */
+\`\`\`
+\`\`\`javascript
+// js code
+// \`\`\`${prompt}`}
                 ]
             },
             {
@@ -26,7 +26,10 @@ async function generateResponse(prompt) {
             }
         );
 
-        const data = response.data.choices[0].message.content;
+        const data = response.data?.choices?.[0]?.message?.content;
+        if(!data){
+            throw new Error("No response from AI");
+        }
 
         const codeBlocks = extractCodeBlock(data);
 
@@ -40,6 +43,7 @@ async function generateResponse(prompt) {
     } catch (error) {
         console.error("AI Error:", error.response?.data || error.message);
         return {
+            success: false,
           reply: "Error generating response",
          code: { html: "", css: "", js: "" },
        };
