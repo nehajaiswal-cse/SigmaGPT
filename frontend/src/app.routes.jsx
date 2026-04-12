@@ -2,6 +2,7 @@ import {createBrowserRouter} from "react-router"
 import Login from "./features/auth/pages/Login"
 import Register from "./features/auth/pages/register"
 import Protected from "./features/auth/componenets/Protected"
+import Dashboard from "./features/chat/pages/Dashboard"
 
 
 export const router = createBrowserRouter([
@@ -13,6 +14,6 @@ export const router = createBrowserRouter([
         element:<Register></Register>
     },{
         path:"/",
-        element:<Protected>SigmaGPT</Protected>
+        element:<Protected><Dashboard /></Protected>
     }
 ])
