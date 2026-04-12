@@ -9,7 +9,13 @@ async function generateResponse(prompt) {
             {
                 model: "deepseek/deepseek-chat", // free model
                 messages: [
-                    { role: "user", content: prompt }
+                    { role: "user", content: `  Generate HTML, CSS, and JavaScript code. IMPORTANT:- Always return code in this format:
+                        \`\`\`html<!-- html code -->\`\`\`\`\`\`css
+                        /* css code */
+                        \`\`\`
+                        \`\`\`javascript
+                        // js code
+                        // \`\`\`${prompt}` }
                 ]
             },
             {

@@ -15,6 +15,7 @@ export const useChat = () => {
     try {
       setLoading(true);
       const res = await generateCode(text);
+      console.log("AI Response:", res);
 
       setMessages((prev) => [
         ...prev,

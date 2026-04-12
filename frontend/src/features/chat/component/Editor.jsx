@@ -15,7 +15,7 @@ const CodeEditor = ({ code }) => {
       </div>
      <div className="flex-1">
         <Editor
-          height="100%"
+          height="90%"
           theme="vs-dark"
           language={tab}
           value={code[tab]}
