@@ -42,11 +42,7 @@ async function generateResponse(prompt) {
 
     } catch (error) {
         console.error("AI Error:", error.response?.data || error.message);
-        return {
-            success: false,
-          reply: "Error generating response",
-         code: { html: "", css: "", js: "" },
-       };
+       throw new Error(error.response?.data?.error?.message || error.message ||"AI generation failed" );
     }
 }
 
