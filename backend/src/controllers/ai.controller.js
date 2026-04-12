@@ -4,6 +4,8 @@ const extractJSON = require("../utils/extractJSON");
 async function generateCodeController(req, res) {
   try {
     const { prompt } = req.body;
+    console.log("REQ BODY:", req.body);
+    console.log("PROMPT:", req.body?.prompt);
     if (!prompt) {
       return res.status(400).json({
         success: false,
