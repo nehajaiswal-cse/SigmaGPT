@@ -40,7 +40,8 @@ const Sidebar = ({ setSidebarOpen }) => {
       <div className="flex-1 overflow-y-auto p-2 space-y-1 custom-scrollbar">
         {chats.map((chat) => (
           <div 
-            key={chat.id} 
+            key={chat.id}
+            onClick={()=>openChat(chat._id)}
             className="p-3 text-sm rounded-md hover:bg-gray-800 cursor-pointer truncate"
           >
             {chat.title || "Untitled Chat"} {/* Fallback if title is missing */ }
