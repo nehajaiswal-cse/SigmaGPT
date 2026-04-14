@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { Eye, EyeOff, Mail, Lock, User } from "lucide-react";
 import {useNavigate,Link} from "react-router"
 import{useAuth} from "../hooks/useAuth"
+import Loader from "../../../features/Loader";
 
 export default function RegisterPage() {
   
@@ -28,7 +29,7 @@ export default function RegisterPage() {
   };
 
   if(loading){
-    return(<main>Loading...</main>)
+    return(<main><Loader text="Creating your account..." /></main>)
   }
 
   return (

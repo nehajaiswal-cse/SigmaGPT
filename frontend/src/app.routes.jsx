@@ -3,7 +3,8 @@ import Login from "./features/auth/pages/Login"
 import Register from "./features/auth/pages/register"
 import Protected from "./features/auth/componenets/Protected"
 import Dashboard from "./features/chat/pages/Dashboard"
-
+import CodeGen from "./features/chat/pages/CodeGen"
+import CodeFix from "./features/chat/pages/CodeFix"
 
 export const router = createBrowserRouter([
     {
@@ -15,5 +16,13 @@ export const router = createBrowserRouter([
     },{
         path:"/",
         element:<Protected><Dashboard /></Protected>
+    },
+    {
+        path:"/codegen",
+        element:<Protected><CodeGen /></Protected>
+    },
+    {
+        path:"/codefix",
+        element:<Protected><CodeFix /></Protected>
     }
 ])

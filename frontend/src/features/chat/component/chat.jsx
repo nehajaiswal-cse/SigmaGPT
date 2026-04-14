@@ -1,4 +1,3 @@
-
 import { useChat } from "../hooks/usechat";
 import ChatMessage from "./chatMessage";
 import ChatInput from "./chatInput";
@@ -8,6 +7,8 @@ const Chat = () => {
 
   return (
     <div className="flex flex-col h-full bg-[#0f172a] text-white">
+      
+      {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
         {messages.length === 0 && (
           <p className="text-gray-400">Start generating code 🚀</p>
@@ -21,8 +22,12 @@ const Chat = () => {
         {error && <p className="text-red-400">{error}</p>}
       </div>
 
-      <ChatInput />
+      {/* FIXED INPUT */}
+      <div className="flex-shrink-0 border-t border-gray-700 bg-[#020617]">
+        <ChatInput />
+      </div>
     </div>
   );
 };
+
 export default Chat;

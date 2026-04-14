@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {useNavigate,Link} from "react-router";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import{useAuth} from "../hooks/useAuth";
+import Loader from "../../../features/Loader";
 
 export default function LoginPage() {
   const{loading,handleLogin} = useAuth();
@@ -25,7 +26,7 @@ export default function LoginPage() {
   };
 
   if(loading){
-    return(<main>Loading...</main>)
+    return(<main><Loader text="Logging you in..." /></main>)
   }
 
   return (
@@ -36,7 +37,7 @@ export default function LoginPage() {
         <div className="text-center mb-8">
           <h1 className="text-3xl font-semibold tracking-tight">
             <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
-              SigmaGPT
+              Toto - Your Coding Assistant!
             </span>
           </h1>
           <p className="text-sm text-gray-400 mt-2">

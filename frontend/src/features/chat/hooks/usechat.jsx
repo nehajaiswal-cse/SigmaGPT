@@ -9,17 +9,28 @@ export const useChat = () => {
   
     const sendMessage = async (text) => {
      if (!text.trim()) return;
-
-    setMessages((prev) => [...prev, { role: "user", content: text }]);
+     setMessages((prev) => [...prev, { role: "user", content: text }]);
 
     try {
       setLoading(true);
       const res = await generateCode(text);
       console.log("AI Response:", res);
+    
+     
+ const cleanReply = (text) => {
+  if (!text) return "Code generated successfully";
 
+  return text
+    .replace(/```[\s\S]*?```/g, "")
+    .replace(/\n\s*\n/g, "\n")
+    .trim();
+};
+
+      const replyText = cleanReply(res.reply);
+      console.log("Cleaned AI Reply:", replyText);
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: res.reply || "Here is the generated code." },
+        { role: "assistant", content: replyText },
       ]);
 
       setCode({
