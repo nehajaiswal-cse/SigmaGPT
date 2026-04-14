@@ -1,6 +1,24 @@
+import{useEffect,useState} from "react";
+import { getChats ,getChatById} from "../service/chatHistoryapi";
+
+
 const Sidebar = ({ setSidebarOpen }) => {
-  // Example dummy data
-  const chats = ["Project Alpha", "Lunch Plans", "React Debugging", "Vacation 2026"];
+  const [chats, setChats] = useState([]);
+
+   useEffect(() => {
+    loadChats();
+  }, []);
+
+  const loadChats = async () => {
+    const res = await getChats();
+    setChats(res.data);
+  };
+
+   const openChat = async (id) => {
+    const res = await getChatById(id);
+    setMessages(res.data.messages);
+    setCurrentChatId(id);
+  };
 
   return (
     <div className="h-full flex flex-col bg-gray-900 text-white">
@@ -20,12 +38,12 @@ const Sidebar = ({ setSidebarOpen }) => {
 
       {/* Chat List */}
       <div className="flex-1 overflow-y-auto p-2 space-y-1 custom-scrollbar">
-        {chats.map((chat, index) => (
+        {chats.map((chat) => (
           <div 
-            key={index} 
+            key={chat.id} 
             className="p-3 text-sm rounded-md hover:bg-gray-800 cursor-pointer truncate"
           >
-            {chat}
+            {chat.title || "Untitled Chat"} {/* Fallback if title is missing */ }
           </div>
         ))}
       </div>
