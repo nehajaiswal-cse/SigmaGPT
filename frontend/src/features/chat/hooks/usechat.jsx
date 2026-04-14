@@ -5,39 +5,51 @@ import {ChatContext} from "../chatContext"
 
 export const useChat = () => {
      const context = useContext(ChatContext)
-     const {messages,setMessages,loading,setLoading,error, setError,code,setCode} = context;
-  
+     const {messages,setMessages,loading,setLoading,error, setError,code,setCode,currentChatId,setCurrentChatId} = context;
+    
+    const cleanReply = (text) => {
+       if (!text) return "Code generated successfully";
+      return text
+       .replace(/```[\s\S]*?```/g, "")
+      .replace(/\n\s*\n/g, "\n")
+      .trim();
+   };
+
+
     const sendMessage = async (text) => {
      if (!text.trim()) return;
-     setMessages((prev) => [...prev, { role: "user", content: text }]);
+
+     const userMsg = { role: "user", content: text };
+
+     setMessages((prev) => [...prev, userMsg]);
 
     try {
       setLoading(true);
-      const res = await generateCode(text);
-      console.log("AI Response:", res);
-    
-     
- const cleanReply = (text) => {
-  if (!text) return "Code generated successfully";
 
-  return text
-    .replace(/```[\s\S]*?```/g, "")
-    .replace(/\n\s*\n/g, "\n")
-    .trim();
-};
+      const res = await generateCode(text);
 
       const replyText = cleanReply(res.reply);
-      console.log("Cleaned AI Reply:", replyText);
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: replyText },
-      ]);
+
+      const aiMsg = { role: "assistant", content: replyText };
+
+      const updatedMessages = [...messages, userMsg, aiMsg];
+
+      setMessages((prev) => [...prev,aiMsg,]);
 
       setCode({
         html: res.code?.html || "<h1>Hello World</h1>",
         css: res.code?.css || "",
         js: res.code?.js || "",
       });
+     
+      if (!currentChatId) {
+        const chat = await createChat(updatedMessages);
+        setCurrentChatId(chat.data._id);
+      } else {
+        await updateChat(currentChatId, [userMsg, aiMsg]);
+      }
+
+
     } catch (err) {
       setError("Something went wrong");
     } finally {

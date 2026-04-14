@@ -17,10 +17,12 @@ app.use(cors({
 // Importing routes
 const authRouter = require("./routes/auth.routes")
 const aiRouter = require("./routes/ai.routes")
+const chatRouter = require("./routes/chatRoutes")
 
 
 // Using routes
 app.use('/api/auth', authRouter);
 app.use('/api/ai', aiRouter);
+app.use('/api/chats', chatRouter);
 
 module.exports = app; 
