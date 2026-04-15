@@ -15,17 +15,17 @@ API.interceptors.request.use((config) => {
 
 
 
-export const getChats = () => API.get("/chat");
+export const getChats = () => API.get("/chats");
 
 
-export const getChatById = (id) => API.get(`/chat/${id}`);
+export const getChatById = (id) => API.get(`/chats/${id}`);
 
 
 export const createChat = (messages) =>
-  API.post("/chat", { messages });
+  API.post("/chats", { messages });
 
 
 export const updateChat = (id, messages) =>
-  API.put(`/chat/${id}`, { messages });
+  API.put(`/chats/${id}`, { messages });
 
-export const deleteChat = (id) => API.delete(`/chat/${id}`);
+export const deleteChat = (id) => API.delete(`/chats/${id}`);
