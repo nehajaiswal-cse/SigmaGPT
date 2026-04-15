@@ -9,7 +9,7 @@ const normalizeMessages = (messages) =>
 const createChat = async (req, res) => {
   try {
     const { messages } = req.body;
-
+   console.log(messages);
     if (!Array.isArray(messages) || messages.length === 0) {
       return res.status(400).json({ message: "Messages required" });
     }
