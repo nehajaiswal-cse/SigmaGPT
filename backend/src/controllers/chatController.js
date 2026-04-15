@@ -2,7 +2,13 @@ const Chat= require("../models/chatmodel.js")
 
  const createChat = async (req, res) => {
   try{
+
+       console.log("USER:", req.user);
+    console.log("BODY:", req.body);
       const { messages } = req.body;
+      if (!messages) {
+      return res.status(400).json({ message: "Messages required" });
+    }
       const chat = await Chat.create({
          userId: req.user.id,
          title: messages[0]?.content?.slice(0, 30) || "New Chat",

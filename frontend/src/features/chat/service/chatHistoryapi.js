@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://sigmagpt-backend-ktzu.onrender.com/api",
+  baseURL: "https://sigmagpt-backend-ktzu.onrender.com/api/chats",
 });
 
 // Add token to Authorization header if it exists in localStorage
@@ -15,17 +15,17 @@ API.interceptors.request.use((config) => {
 
 
 
-export const getChats = () => API.get("/chats");
+export const getChats = () => API.get("/");
 
 
-export const getChatById = (id) => API.get(`/chats/${id}`);
+export const getChatById = (id) => API.get(`/${id}`);
 
 
 export const createChat = (messages) =>
-  API.post("/chats", { messages });
+  API.post("/", { messages });
 
 
 export const updateChat = (id, messages) =>
-  API.put(`/chats/${id}`, { messages });
+  API.put(`/${id}`, { messages });
 
-export const deleteChat = (id) => API.delete(`/chats/${id}`);
+export const deleteChat = (id) => API.delete(`/${id}`);
