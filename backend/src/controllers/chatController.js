@@ -1,16 +1,19 @@
 const Chat= require("../models/chatmodel.js")
 
  const createChat = async (req, res) => {
-  const { messages } = req.body;
-
-  const chat = await Chat.create({
-    userId: req.user.id,
-    title: messages[0]?.content?.slice(0, 30) || "New Chat",
-    messages,
+  try{
+      const { messages } = req.body;
+      const chat = await Chat.create({
+         userId: req.user.id,
+         title: messages[0]?.content?.slice(0, 30) || "New Chat",
+         messages,
   });
-
-  res.json(chat);
+  res.status(201).json(chat);
+  }catch(error){
+  console.error("CREATE CHAT ERROR:", error.message);
+  res.status(500).json({ message: "Internal Server Error" });     
 };
+ }
 
  const getChats = async (req, res) => {
   const chats = await Chat.find({ userId: req.user._id })

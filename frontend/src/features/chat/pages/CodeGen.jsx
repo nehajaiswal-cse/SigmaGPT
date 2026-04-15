@@ -8,7 +8,7 @@ import { useChat } from "../hooks/usechat";
 import { ArrowRight, Menu } from "lucide-react";
 
 const CodeGen = () => {
-  const { code } = useChat();
+  const { code ,setMessages,currentChatId,setCurrentChatId} = useChat();
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
@@ -41,7 +41,12 @@ const CodeGen = () => {
         >
           {/* Internal container with fixed width to prevent text squishing during animation */}
           <div className="w-64 h-full">
-            <Sidebar setSidebarOpen={setSidebarOpen} />
+           <Sidebar 
+  setSidebarOpen={setSidebarOpen}
+  setMessages={setMessages}
+  setCurrentChatId={setCurrentChatId}
+  currentChatId={currentChatId}
+/>
           </div>
         </div>
 

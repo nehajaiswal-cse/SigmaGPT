@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://sigmagpt-backend-ktzu.onrender.com/api/ai",
+  baseURL: "https://sigmagpt-backend-ktzu.onrender.com/api",
 });
 
 // Add token to Authorization header if it exists in localStorage

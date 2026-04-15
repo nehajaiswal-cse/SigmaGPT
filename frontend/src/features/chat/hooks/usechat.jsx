@@ -2,10 +2,12 @@ import { useContext } from "react";
 import{generateCode} from "../service/chatapi"
 
 import {ChatContext} from "../chatContext"
-
+import { createChat, updateChat } from "../service/chatHistoryapi";
+  
 export const useChat = () => {
      const context = useContext(ChatContext)
      const {messages,setMessages,loading,setLoading,error, setError,code,setCode,currentChatId,setCurrentChatId} = context;
+  
     
     const cleanReply = (text) => {
        if (!text) return "Code generated successfully";
@@ -51,7 +53,7 @@ export const useChat = () => {
 
 
     } catch (err) {
-      setError("Something went wrong");
+      console.log("CHAT ERROR:", err.response?.data || err.message);
     } finally {
       setLoading(false);
     }

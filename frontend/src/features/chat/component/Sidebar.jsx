@@ -2,7 +2,7 @@ import{useEffect,useState} from "react";
 import { getChats ,getChatById} from "../service/chatHistoryapi";
 
 
-const Sidebar = ({ setSidebarOpen }) => {
+const Sidebar = ({ setSidebarOpen,setMessages, setCurrentChatId, currentChatId }) => {
   const [chats, setChats] = useState([]);
 
    useEffect(() => {
@@ -10,9 +10,13 @@ const Sidebar = ({ setSidebarOpen }) => {
   }, []);
 
   const loadChats = async () => {
+  try {
     const res = await getChats();
     setChats(res.data);
-  };
+  } catch (err) {
+    console.error("CHAT LOAD ERROR:", err.response?.data || err.message);
+  }
+};
 
    const openChat = async (id) => {
     const res = await getChatById(id);

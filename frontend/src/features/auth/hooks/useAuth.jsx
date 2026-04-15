@@ -41,6 +41,8 @@ export const useAuth=()=>{
         try{
            const data = await logout()
             setUser(null)
+            localStorage.removeItem("token");
+            window.location.href = "/login";
         }
         catch(err){
             
