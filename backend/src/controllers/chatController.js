@@ -21,7 +21,7 @@ const createChat = async (req, res) => {
       title: normalizedMessages[0]?.content?.slice(0, 30) || "New Chat",
       messages: normalizedMessages,
     });
-
+  console.log("✅ CHAT CREATED:", chat);
     res.status(201).json(chat);
   } catch (error) {
     console.error("CREATE CHAT ERROR:", error);
