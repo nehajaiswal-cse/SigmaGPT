@@ -33,7 +33,7 @@ const createChat = async (req, res) => {
   const chats = await Chat.find({ userId: req.user._id })
     .sort({ updatedAt: -1 })
     .select("title updatedAt");
-
+  console.log("Fetched Chats for User:", req.user._id, chats);
   res.json(chats);
 };
 

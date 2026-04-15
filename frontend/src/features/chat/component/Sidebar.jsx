@@ -12,6 +12,7 @@ const Sidebar = ({ setSidebarOpen,setMessages, setCurrentChatId, currentChatId }
   const loadChats = async () => {
   try {
     const res = await getChats();
+    console.log("Loaded Chats:", res.data);
     setChats(res.data);
   } catch (err) {
     console.error("CHAT LOAD ERROR:", err.response?.data || err.message);
@@ -20,6 +21,7 @@ const Sidebar = ({ setSidebarOpen,setMessages, setCurrentChatId, currentChatId }
 
    const openChat = async (id) => {
     const res = await getChatById(id);
+    console.log("Opened Chat:", res.data);
     setMessages(res.data.messages);
     setCurrentChatId(id);
   };

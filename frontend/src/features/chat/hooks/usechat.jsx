@@ -16,47 +16,47 @@ export const useChat = () => {
       .replace(/\n\s*\n/g, "\n")
       .trim();
    };
+  
+   const sendMessage = async (text) => {
+  if (!text.trim()) return;
 
+  const userMsg = { role: "user", content: text };
+  setMessages((prev) => [...prev, userMsg]);
 
-    const sendMessage = async (text) => {
-     if (!text.trim()) return;
+  try {
+    setLoading(true);
 
-     const userMsg = { role: "user", content: text };
+    const res = await generateCode(text);
+    const replyText = cleanReply(res.reply);
 
-     setMessages((prev) => [...prev, userMsg]);
+    const aiMsg = { role: "ai", content: replyText }; // ✅ FIXED
 
-    try {
-      setLoading(true);
+    setMessages((prev) => {
+      const updated = [...prev, aiMsg];
 
-      const res = await generateCode(text);
-
-      const replyText = cleanReply(res.reply);
-
-      const aiMsg = { role: "assistant", content: replyText };
-
-      const updatedMessages = [...messages, userMsg, aiMsg];
-
-      setMessages((prev) => [...prev,aiMsg,]);
-
-      setCode({
-        html: res.code?.html || "<h1>Hello World</h1>",
-        css: res.code?.css || "",
-        js: res.code?.js || "",
-      });
-     
       if (!currentChatId) {
-        const chat = await createChat(updatedMessages);
-        setCurrentChatId(chat.data._id);
+        createChat(updated).then((chat) => {
+          setCurrentChatId(chat.data._id);
+        });
       } else {
-        await updateChat(currentChatId, [userMsg, aiMsg]);
+        updateChat(currentChatId, [userMsg, aiMsg]);
       }
+      console.log("Updated Messages:", updated);
+      return updated;
+    });
 
+    setCode({
+      html: res.code?.html || "<h1>Hello World</h1>",
+      css: res.code?.css || "",
+      js: res.code?.js || "",
+    });
 
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-    return { messages, sendMessage, loading, error, code };
+  } catch (err) {
+    console.log(err);
+  } finally {
+    setLoading(false);
+  }
+};
+
+  return { messages, sendMessage, loading, error, code };
 };
