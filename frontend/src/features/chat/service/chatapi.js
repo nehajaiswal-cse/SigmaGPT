@@ -2,6 +2,7 @@ import axios from "axios";
 
 const API = axios.create({
   baseURL: "https://sigmagpt-backend-ktzu.onrender.com/api/ai",
+  withCredentials: true,
 });
 
 export const generateCode = async (prompt) => {

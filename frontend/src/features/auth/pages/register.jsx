@@ -40,7 +40,7 @@ export default function RegisterPage() {
         <div className="text-center mb-8">
           <h1 className="text-3xl font-semibold tracking-tight">
             <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
-              SigmaGPT
+              Toto-Your Coding Assistant!
             </span>
           </h1>
           <p className="text-sm text-gray-400 mt-2">

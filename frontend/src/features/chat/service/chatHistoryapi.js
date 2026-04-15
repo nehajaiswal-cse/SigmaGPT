@@ -2,6 +2,7 @@ import axios from "axios";
 
 const API = axios.create({
   baseURL: "https://sigmagpt-backend-ktzu.onrender.com/api/chats",
+  withCredentials: true,
 });
 
 // Add token to Authorization header if it exists in localStorage
