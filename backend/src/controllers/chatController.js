@@ -10,10 +10,10 @@ const Chat= require("../models/chatmodel.js")
   });
   res.status(201).json(chat);
   }catch(error){
-  console.error("CREATE CHAT ERROR:", error.message);
-  res.status(500).json({ message: "Internal Server Error" });     
-};
- }
+    console.error("CREATE CHAT ERROR:", error);
+    res.status(500).json({ message: "Internal Server Error" });     
+  };
+}
 
  const getChats = async (req, res) => {
   const chats = await Chat.find({ userId: req.user._id })
