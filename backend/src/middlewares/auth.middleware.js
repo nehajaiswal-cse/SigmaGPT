@@ -1,6 +1,7 @@
 const Jwt = require("jsonwebtoken");
 const tokenBlacklistModel = require("../models/blacklist.model.js");
 async function authUser(req, res, next){
+  console.log("🔥 MIDDLEWARE HIT");
    // Try to get token from cookies first, then from Authorization header
    let token = req.cookies.token;
    
