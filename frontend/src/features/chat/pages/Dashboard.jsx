@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import logo from "../component/Toto logo.jpeg";
+import logo from "./Toto logo.jpeg";
 
 const DashboardHome = () => {
   const navigate = useNavigate();
@@ -19,8 +19,8 @@ const DashboardHome = () => {
         
         {/* Title */}
         <div className="mt-10">
-          <h1 className="text-3xl font-bold">
-            Welcome to Toto 🚀
+          <h1 className="text-3xl  flex items-center gap-3 font-bold">
+            Welcome to Toto <img src={logo} alt="logo" className="w-10 h-10 object-contain" />
           </h1>
         </div>
 

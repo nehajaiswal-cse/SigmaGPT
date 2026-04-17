@@ -7,6 +7,7 @@ import Preview from "../component/preview";
 import { useChat } from "../hooks/usechat";
 import { ArrowRight, Menu } from "lucide-react";
 
+
 const CodeGen = () => {
   const { code } = useChat();
   const [sidebarOpen, setSidebarOpen] = useState(true);
