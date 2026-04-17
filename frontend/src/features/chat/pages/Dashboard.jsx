@@ -12,11 +12,15 @@ const DashboardHome = () => {
       <div className="absolute w-[500px] h-[500px] bg-pink-500/20 blur-3xl rounded-full bottom-[-100px] right-[-100px]"></div>
 
       {/* Background Logo */}
-      <img
-        src={logo}
-        alt="bg-logo"
-        className="absolute inset-0 w-full h-90vh object-cover opacity-5 pointer-events-none"
-      />
+     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+  <img
+    src={logo}
+    alt="bg-logo"
+    className="w-[210%] h-[170%] object-contain opacity-5"
+  />
+</div>
+</div>
 
       {/* MAIN CONTENT */}
       <div className="relative z-10 text-center">
