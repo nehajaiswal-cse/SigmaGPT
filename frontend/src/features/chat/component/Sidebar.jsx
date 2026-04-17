@@ -1,35 +1,34 @@
-import{useEffect,useState} from "react";
-import { getChats ,deleteChat,getChatById} from "../service/chatHistoryapi";
+import { useEffect } from "react";
+import { getChats, deleteChat, getChatById } from "../service/chatHistoryapi";
 import { useChat } from "../hooks/usechat";
 
 const Sidebar = ({ setSidebarOpen }) => {
-  const { chats,setChats,setMessages,setCurrentChatId} = useChat();
-   useEffect(() => {
+  const { chats, setChats, setMessages, setCurrentChatId } = useChat();
+
+  useEffect(() => {
     loadChats();
   }, []);
 
   const loadChats = async () => {
-  try {
-    const res = await getChats();
-    setChats(res.data);
-  } catch (err) {
-    console.error("CHAT LOAD ERROR:", err.response?.data || err.message);
-  }
-};
+    try {
+      const res = await getChats();
+      setChats(res.data);
+    } catch (err) {
+      console.error("CHAT LOAD ERROR:", err.response?.data || err.message);
+    }
+  };
 
-   const openChat = async (id) => {
+  const openChat = async (id) => {
     const res = await getChatById(id);
     setMessages(res.data.messages);
     setCurrentChatId(id);
   };
 
   const handleDelete = async (e, id) => {
-    e.stopPropagation(); // 🔥 important (chat open na ho)
+    e.stopPropagation();
 
     try {
       await deleteChat(id);
-
-      // 🔥 instant UI update
       setChats((prev) => prev.filter((chat) => chat._id !== id));
     } catch (err) {
       console.error("DELETE ERROR:", err.response?.data || err.message);
@@ -46,7 +45,7 @@ const Sidebar = ({ setSidebarOpen }) => {
 
         <button
           onClick={() => setSidebarOpen(false)}
-          className="text-xs px-2 py-1 bg-gray-800 rounded hover:bg-gray-700 transition-colors duration-200"
+          className="text-xs px-2 py-1 bg-gray-800 rounded hover:bg-gray-700"
         >
           Close
         </button>
@@ -55,25 +54,27 @@ const Sidebar = ({ setSidebarOpen }) => {
       {/* Chat List */}
       <div className="flex-1 overflow-y-auto p-2 space-y-1 custom-scrollbar">
         {(chats || []).map((chat) => (
-          <div 
+          <div
             key={chat._id}
-            onClick={()=>openChat(chat._id)}
-            className="p-3 text-sm rounded-md hover:bg-gray-800 cursor-pointer truncate"
-          > 
+            onClick={() => openChat(chat._id)}
+            className="flex items-center justify-between p-3 text-sm rounded-md hover:bg-gray-800 cursor-pointer group"
+          >
+            {/* LEFT SIDE */}
             <div className="flex-1 truncate">
-              <p>{chat.title}</p>
+              <p className="truncate">{chat.title}</p>
               <small className="text-gray-400">
                 {new Date(chat.updatedAt).toLocaleString()}
               </small>
             </div>
 
+            {/* RIGHT SIDE DELETE BUTTON */}
             <button
               onClick={(e) => handleDelete(e, chat._id)}
-              className="text-red-400 hover:text-red-600 text-xs ml-2"
+              className="ml-2 px-2 py-1 text-xs bg-red-500/10 text-red-400 rounded 
+                         opacity-0 group-hover:opacity-100 transition"
             >
-            ✕
+              Delete
             </button>
-
           </div>
         ))}
       </div>
