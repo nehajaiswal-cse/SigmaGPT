@@ -5,6 +5,7 @@ import Protected from "./features/auth/componenets/Protected"
 import Dashboard from "./features/chat/pages/Dashboard"
 import CodeGen from "./features/chat/pages/CodeGen"
 import CodeFix from "./features/chat/pages/CodeFix"
+import About from "./features/chat/pages/about"
 
 export const router = createBrowserRouter([
     {
@@ -24,5 +25,9 @@ export const router = createBrowserRouter([
     {
         path:"/codefix",
         element:<Protected><CodeFix /></Protected>
+    },
+    {
+        path:"/about",
+        element:<About></About>
     }
 ])

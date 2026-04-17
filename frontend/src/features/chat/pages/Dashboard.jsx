@@ -1,99 +1,90 @@
 import { useNavigate } from "react-router";
-import logo from "./Toto logo.jpeg";
+import logo from "./Toto-logo.png";
 
 const DashboardHome = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="h-screen bg-black text-white relative overflow-hidden">
-      
+    <div className="h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white flex items-center justify-center relative overflow-hidden">
+
+      {/* Background Glow */}
+      <div className="absolute w-[500px] h-[500px] bg-indigo-500/20 blur-3xl rounded-full top-[-100px] left-[-100px]"></div>
+      <div className="absolute w-[500px] h-[500px] bg-pink-500/20 blur-3xl rounded-full bottom-[-100px] right-[-100px]"></div>
+
       {/* Background Logo */}
       <img
         src={logo}
         alt="bg-logo"
-        className="absolute inset-0 w-full h-full object-contain opacity-10 pointer-events-none"
+        className="absolute inset-0 w-full h-full object-contain opacity-5 pointer-events-none"
       />
 
-      {/* Content */}
-      <div className="relative z-10 h-full px-16">
-        
-        {/* Title */}
-        <div className="mt-10">
-          <h1 className="text-3xl  flex items-center gap-3 font-bold">
-            Welcome to Toto <img src={logo} alt="logo" className="w-10 h-10 object-contain" />
-          </h1>
-        </div>
+      {/* MAIN CONTENT */}
+      <div className="relative z-10 text-center">
 
-        {/* LEFT SIDE CARDS */}
-        <div className="flex flex-col gap-6 mt-16 w-[320px]">
-          
+        {/* Heading */}
+        <h1 className="text-5xl font-bold flex items-center justify-center gap-3 mb-4">
+          <span className="bg-gradient-to-r from-indigo-400 to-pink-400 text-transparent bg-clip-text">
+            WELCOME TO TOTO!
+          </span>
+        </h1>
+
+        {/* Subtitle */}
+        <p className="text-gray-400 mb-12 max-w-xl mx-auto">
+          Generate, fix, and improve your code with the power of AI — faster, smarter, better 🚀
+        </p>
+
+        {/* CARDS */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-6">
+
           {/* Code Generation */}
           <div
             onClick={() => navigate("/codegen")}
-            className="cursor-pointer p-8 bg-[#1e293b]/80 backdrop-blur rounded-xl shadow-lg hover:scale-105 transition"
+            className="group cursor-pointer p-8 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-xl hover:scale-105 hover:border-indigo-400 transition duration-300"
           >
-            <h2 className="text-xl font-semibold mb-2 text-indigo-400">
-              Code Generation
+            <h2 className="text-xl font-semibold mb-3 text-indigo-400">
+              ⚡ Code Generation
             </h2>
-            <p className="text-gray-400">
-              Generate code using AI from your prompt
+            <p className="text-gray-400 text-sm">
+              Turn your ideas into working code instantly using AI
+            </p>
+            <p className="mt-4 text-xs text-indigo-300 opacity-0 group-hover:opacity-100 transition">
+              Click to start →
             </p>
           </div>
 
           {/* Code Correction */}
           <div
             onClick={() => navigate("/codefix")}
-            className="cursor-pointer p-8 bg-[#1e293b]/80 backdrop-blur rounded-xl shadow-lg hover:scale-105 transition"
+            className="group cursor-pointer p-8 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-xl hover:scale-105 hover:border-green-400 transition duration-300"
           >
-            <h2 className="text-xl font-semibold mb-2 text-green-400">
-              Code Correction
+            <h2 className="text-xl font-semibold mb-3 text-green-400">
+              🛠 Code Correction
             </h2>
-            <p className="text-gray-400">
-              Fix bugs and improve your code
+            <p className="text-gray-400 text-sm">
+              Detect bugs and improve your code quality instantly
+            </p>
+            <p className="mt-4 text-xs text-green-300 opacity-0 group-hover:opacity-100 transition">
+              Click to fix →
             </p>
           </div>
+
+          {/* About Us (Now clickable like others) */}
+          <div
+            onClick={() => navigate("/about")}
+            className="group cursor-pointer p-8 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-xl hover:scale-105 hover:border-yellow-400 transition duration-300"
+          >
+            <h2 className="text-xl font-semibold mb-3 text-yellow-400">
+              🚀 About Us
+            </h2>
+            <p className="text-gray-400 text-sm">
+              Learn more about Toto and how it helps developers grow
+            </p>
+            <p className="mt-4 text-xs text-yellow-300 opacity-0 group-hover:opacity-100 transition">
+              Know more →
+            </p>
+          </div>
+
         </div>
-
-        {/* TOP RIGHT - ABOUT US */}
-        {/* TOP RIGHT - ABOUT + CONTACT */}
-<div className="absolute top-10 right-16 max-w-sm ">
-
-  {/* About Us */}
-  <div className="mb-10">
-    <h2 className="text-2xl font-bold text-yellow-400 mb-2">
-      About Toto
-    </h2>
-    <p className="text-gray-300 mb-4 leading-relaxed">
-              Toto is an AI-powered platform designed to help developers write,
-              debug, and improve their code effortlessly.
-            </p>
-
-            <p className="text-gray-400 mb-4 leading-relaxed">
-              With intelligent code generation and real-time bug fixing, Toto
-              simplifies development workflows and boosts productivity.
-            </p>
-
-            <p className="text-gray-500 leading-relaxed">
-              Whether you're a beginner or an experienced developer, Toto helps
-              you build faster, learn better, and code smarter.
-            </p>
-  </div>
-
-  {/* Contact Us (Below About) */}
-  <div>
-    <h2 className="text-2xl font-bold text-pink-400 mb-2">
-      Contact Us
-    </h2>
-    <p className="text-gray-400 text-sm">
-      📧 support@toto.ai
-    </p>
-    <p className="text-gray-400 text-sm">
-      📞 +91 98765 43210
-    </p>
-  </div>
-
-</div>
-
       </div>
     </div>
   );

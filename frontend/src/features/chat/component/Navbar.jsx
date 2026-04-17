@@ -1,5 +1,5 @@
 import { useAuth } from "../../auth/hooks/useAuth";
-import logo from "./Toto logo.jpeg";
+import logo from "./Toto-logo.png";
 import Loader from "../../../features/Loader";
 import { ArrowRight, Menu } from "lucide-react";
 
@@ -19,7 +19,7 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
           <Menu size={18} />
         </button>
 
-        <img src={logo} alt="Logo" className="h-12 w-12" />
+        <img src={logo} alt="Logo" className="h-15 w-12" />
 
         <h1 className="text-xl font-bold text-indigo-500">Toto - Your Coding Assistant!</h1>
       </div>

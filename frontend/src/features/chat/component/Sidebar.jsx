@@ -35,6 +35,11 @@ const Sidebar = ({ setSidebarOpen }) => {
     }
   };
 
+  const handleNewChat = () => {
+  setMessages([]);
+  setCurrentChatId(null);
+};
+
   return (
     <div className="h-full flex flex-col bg-gray-900 text-white">
       {/* Header */}
@@ -50,6 +55,12 @@ const Sidebar = ({ setSidebarOpen }) => {
           Close
         </button>
       </div>
+
+      <div className="p-2 border-b border-gray-800">
+       <button onClick={handleNewChat} className="w-full py-2 text-sm bg-indigo-500 hover:bg-indigo-600 rounded-md transition">
+        + New Chat
+      </button>
+</div>
 
       {/* Chat List */}
       <div className="flex-1 overflow-y-auto p-2 space-y-1 custom-scrollbar">
