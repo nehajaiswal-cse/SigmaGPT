@@ -8,10 +8,11 @@ export const ChatProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [code, setCode] = useState({ html: "", css: "", js: "" });
    const [currentChatId, setCurrentChatId] = useState(null);
+   const [chats, setChats] = useState([]);
 
   return (
     <ChatContext.Provider
-      value={{ messages, setMessages, loading, setLoading, error, setError, code, setCode, currentChatId, setCurrentChatId }}
+      value={{ messages, setMessages, loading, setLoading, error, setError, code, setCode, currentChatId, setCurrentChatId ,chats, setChats}}
     >
       {children}
     </ChatContext.Provider>

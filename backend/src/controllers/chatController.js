@@ -6,11 +6,10 @@ const normalizeMessages = (messages) =>
     content,
   }));
 
-// ✅ CREATE CHAT
+//  CREATE CHAT
 const createChat = async (req, res) => {
   try {
     const { messages } = req.body;
-    console.log("Incoming Messages:", messages);
 
     if (!Array.isArray(messages) || messages.length === 0) {
       return res.status(400).json({ message: "Messages required" });
@@ -19,36 +18,36 @@ const createChat = async (req, res) => {
     const normalizedMessages = normalizeMessages(messages);
 
     const chat = await Chat.create({
-      userId: req.user._id, // ✅ fixed consistency
+      userId: req.user._id, 
       title:
         normalizedMessages[0]?.content?.slice(0, 30) || "New Chat",
       messages: normalizedMessages,
     });
 
-    console.log("✅ CHAT CREATED:", chat);
+    console.log("CHAT CREATED:", chat);
     res.status(201).json(chat);
   } catch (error) {
-    console.error("❌ CREATE CHAT ERROR:", error.message);
+    console.error(" CREATE CHAT ERROR:", error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
-// ✅ GET ALL CHATS
+
 const getChats = async (req, res) => {
   try {
     const chats = await Chat.find({ userId: req.user._id })
       .sort({ updatedAt: -1 })
       .select("title updatedAt");
 
-    console.log("📥 Fetched Chats:", chats);
+    console.log(" Fetched Chats:", chats);
     res.json(chats);
   } catch (error) {
-    console.error("❌ GET CHATS ERROR:", error.message);
+    console.error(" GET CHATS ERROR:", error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
-// ✅ GET CHAT BY ID
+//  GET CHAT BY ID
 const getChatById = async (req, res) => {
   try {
     const chat = await Chat.findById(req.params.id);
@@ -59,12 +58,12 @@ const getChatById = async (req, res) => {
 
     res.json(chat);
   } catch (error) {
-    console.error("❌ GET CHAT BY ID ERROR:", error.message);
+    console.error(" GET CHAT BY ID ERROR:", error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
-// ✅ UPDATE CHAT
+//  UPDATE CHAT
 const updateChat = async (req, res) => {
   try {
     const { messages } = req.body;
@@ -85,15 +84,15 @@ const updateChat = async (req, res) => {
       return res.status(404).json({ message: "Chat not found" });
     }
 
-    console.log("✏️ CHAT UPDATED:", chat);
+    console.log(" CHAT UPDATED:", chat);
     res.json(chat);
   } catch (error) {
-    console.error("❌ UPDATE CHAT ERROR:", error.message);
+    console.error(" UPDATE CHAT ERROR:", error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
-// ✅ DELETE CHAT
+//  DELETE CHAT
 const deleteChat = async (req, res) => {
   try {
     const chat = await Chat.findByIdAndDelete(req.params.id);
@@ -105,7 +104,7 @@ const deleteChat = async (req, res) => {
     console.log("🗑️ CHAT DELETED:", req.params.id);
     res.json({ message: "Chat deleted" });
   } catch (error) {
-    console.error("❌ DELETE CHAT ERROR:", error.message);
+    console.error(" DELETE CHAT ERROR:", error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };

@@ -6,7 +6,7 @@ import { createChat, updateChat } from "../service/chatHistoryapi";
 
 export const useChat = () => {
      const context = useContext(ChatContext)
-     const {messages,setMessages,loading,setLoading,error, setError,code,setCode,currentChatId,setCurrentChatId} = context;
+     const {messages,setMessages,loading,setLoading,error,code,setCode,currentChatId,setCurrentChatId,chats,setChats} = context;
   
     
     const cleanReply = (text) => {
@@ -17,11 +17,13 @@ export const useChat = () => {
       .trim();
    };
   
-   const sendMessage = async (text) => {
+  const sendMessage = async (text) => {
   if (!text.trim()) return;
 
   const userMsg = { role: "user", content: text };
-  setMessages((prev) => [...prev, userMsg]);
+  const newMessages = [...messages, userMsg];
+
+  setMessages(newMessages);
 
   try {
     setLoading(true);
@@ -29,21 +31,19 @@ export const useChat = () => {
     const res = await generateCode(text);
     const replyText = cleanReply(res.reply);
 
-    const aiMsg = { role: "ai", content: replyText }; // ✅ FIXED
+    const aiMsg = { role: "ai", content: replyText };
 
-    setMessages((prev) => {
-      const updated = [...prev, aiMsg];
+    const updatedMessages = [...newMessages, aiMsg];
+    setMessages(updatedMessages);
 
-      if (!currentChatId) {
-        createChat(updated).then((chat) => {
-          setCurrentChatId(chat.data._id);
-        });
-      } else {
-        updateChat(currentChatId, [userMsg, aiMsg]);
-      }
-      console.log("Updated Messages:", updated);
-      return updated;
-    });
+    if (!currentChatId) {
+      const chat = await createChat(updatedMessages);
+
+      setCurrentChatId(chat.data._id);
+      setChats((prev) => [chat.data, ...prev]);
+    } else {
+      await updateChat(currentChatId, [userMsg, aiMsg]);
+    }
 
     setCode({
       html: res.code?.html || "<h1>Hello World</h1>",
@@ -58,5 +58,15 @@ export const useChat = () => {
   }
 };
 
-  return { messages, sendMessage, loading, error, code };
+  return {
+    messages,
+    sendMessage,
+    setMessages,
+    setCurrentChatId,
+    chats,
+    setChats,
+    loading,
+    error,
+    code,
+  };
 };

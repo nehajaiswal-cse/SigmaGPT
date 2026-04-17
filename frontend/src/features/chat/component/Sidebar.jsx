@@ -1,10 +1,9 @@
 import{useEffect,useState} from "react";
-import { getChats ,getChatById} from "../service/chatHistoryapi";
+import { getChats ,deleteChat,getChatById} from "../service/chatHistoryapi";
+import { useChat } from "../hooks/usechat";
 
-
-const Sidebar = ({ setSidebarOpen,setMessages, setCurrentChatId, currentChatId }) => {
-  const [chats, setChats] = useState([]);
-
+const Sidebar = ({ setSidebarOpen }) => {
+  const { chats,setChats,setMessages,setCurrentChatId} = useChat();
    useEffect(() => {
     loadChats();
   }, []);
@@ -12,7 +11,6 @@ const Sidebar = ({ setSidebarOpen,setMessages, setCurrentChatId, currentChatId }
   const loadChats = async () => {
   try {
     const res = await getChats();
-    console.log("Loaded Chats:", res.data);
     setChats(res.data);
   } catch (err) {
     console.error("CHAT LOAD ERROR:", err.response?.data || err.message);
@@ -21,9 +19,21 @@ const Sidebar = ({ setSidebarOpen,setMessages, setCurrentChatId, currentChatId }
 
    const openChat = async (id) => {
     const res = await getChatById(id);
-    console.log("Opened Chat:", res.data);
     setMessages(res.data.messages);
     setCurrentChatId(id);
+  };
+
+  const handleDelete = async (e, id) => {
+    e.stopPropagation(); // 🔥 important (chat open na ho)
+
+    try {
+      await deleteChat(id);
+
+      // 🔥 instant UI update
+      setChats((prev) => prev.filter((chat) => chat._id !== id));
+    } catch (err) {
+      console.error("DELETE ERROR:", err.response?.data || err.message);
+    }
   };
 
   return (
@@ -44,13 +54,26 @@ const Sidebar = ({ setSidebarOpen,setMessages, setCurrentChatId, currentChatId }
 
       {/* Chat List */}
       <div className="flex-1 overflow-y-auto p-2 space-y-1 custom-scrollbar">
-        {chats.map((chat) => (
+        {(chats || []).map((chat) => (
           <div 
-            key={chat.id}
+            key={chat._id}
             onClick={()=>openChat(chat._id)}
             className="p-3 text-sm rounded-md hover:bg-gray-800 cursor-pointer truncate"
-          >
-            {chat.title || "Untitled Chat"} {/* Fallback if title is missing */ }
+          > 
+            <div className="flex-1 truncate">
+              <p>{chat.title}</p>
+              <small className="text-gray-400">
+                {new Date(chat.updatedAt).toLocaleString()}
+              </small>
+            </div>
+
+            <button
+              onClick={(e) => handleDelete(e, chat._id)}
+              className="text-red-400 hover:text-red-600 text-xs ml-2"
+            >
+            ✕
+            </button>
+
           </div>
         ))}
       </div>
