@@ -15,7 +15,7 @@ const DashboardHome = () => {
       <img
         src={logo}
         alt="bg-logo"
-        className="absolute inset-0 w-full h-full object-contain opacity-5 pointer-events-none"
+        className="absolute inset-0 w-full h-90vh object-cover opacity-5 pointer-events-none"
       />
 
       {/* MAIN CONTENT */}

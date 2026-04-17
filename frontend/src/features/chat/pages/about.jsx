@@ -15,7 +15,7 @@ const About = () => {
         <img
           src={logo}
           alt="Toto Logo"
-          className="w-16 h-16 mx-auto mb-4"
+          className="w-16 h-19 mx-auto mb-4"
         />
 
         {/* Heading */}
